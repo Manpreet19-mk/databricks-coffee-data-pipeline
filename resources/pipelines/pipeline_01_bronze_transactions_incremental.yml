@@ -1,0 +1,15 @@
+resources:
+  pipelines:
+    pipeline_transactions_incremental:
+      name: "transactions_incremental_${bundle.target}"
+      libraries:
+        - glob:
+            include: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/bronze/dlt/bronze_transactions_incremental.sql
+      schema: bronze
+      continuous: false
+      development: false
+      photon: true
+      channel: CURRENT
+      catalog: coffee
+      serverless: true
+      root_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/bronze/dlt

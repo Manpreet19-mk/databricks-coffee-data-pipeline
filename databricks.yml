@@ -1,0 +1,25 @@
+bundle:
+  name: vstone-coffee-pipeline
+
+include:
+  - resources/jobs/*.yml
+  - resources/pipelines/*.yml
+
+targets:
+  dev:
+    default: true
+    workspace:
+      host: https://dbc-860eea33-6ad3.cloud.databricks.com
+  prod:
+    workspace:
+      host: https://dbc-860eea33-6ad3.cloud.databricks.com
+
+variables:
+  catalog:
+    default: coffee
+  bronze_schema:
+    default: bronze
+  silver_schema:
+    default: silver
+  gold_schema:
+    default: gold

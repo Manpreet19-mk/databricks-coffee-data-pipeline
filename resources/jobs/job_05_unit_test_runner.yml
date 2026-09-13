@@ -1,0 +1,22 @@
+resources:
+  jobs:
+    unit_test_runner:
+      name: unit_test_runner
+      tasks:
+        - task_key: test_udf
+          notebook_task:
+            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/tests/unit_tests/01_test_standardize_column_name_udf
+            source: WORKSPACE
+        - task_key: test_standardise_column
+          depends_on:
+            - task_key: test_udf
+          notebook_task:
+            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/tests/unit_tests/02_test_standardize_columns_function
+            source: WORKSPACE
+        - task_key: test_dedup_logic
+          notebook_task:
+            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/tests/unit_tests/03_test_deduplication_logic
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED

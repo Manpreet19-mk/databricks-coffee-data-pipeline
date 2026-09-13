@@ -1,0 +1,27 @@
+resources:
+  jobs:
+    Data_Chunking:
+      name: Data Chunking
+      email_notifications:
+        on_failure:
+          - projectdilpreet@gmail.com
+      tasks:
+        - task_key: Transactions_chunking
+          notebook_task:
+            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/data_chunking/Transactions_chunking
+            source: WORKSPACE
+        - task_key: Csv_to_json_menu_items
+          depends_on:
+            - task_key: Transactions_chunking
+          notebook_task:
+            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/data_chunking/Csv_to_json_menu-items
+            source: WORKSPACE
+        - task_key: csv_to_xml_stores
+          depends_on:
+            - task_key: Csv_to_json_menu_items
+          notebook_task:
+            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/data_chunking/csv_to_xml_stores
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED

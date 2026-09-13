@@ -1,0 +1,101 @@
+resources:
+  jobs:
+    silver_ingestion:
+      name: silver_ingestion
+      email_notifications:
+        on_failure:
+          - projectdilpreet@gmail.com
+      tasks:
+        - task_key: column_standardising_udf
+          notebook_task:
+            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/silver/Silver_utils/Column_standardization_udf
+            source: WORKSPACE
+        - task_key: silver_menu_items
+          depends_on:
+            - task_key: column_standardising_udf
+          notebook_task:
+            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/silver/silver_menu_items
+            base_parameters:
+              source_table: menu_items
+            source: WORKSPACE
+          max_retries: 2
+          min_retry_interval_millis: 60000
+          disable_auto_optimization: false
+        - task_key: silver_payment_methods
+          depends_on:
+            - task_key: column_standardising_udf
+          notebook_task:
+            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/silver/silver_payment_methods
+            base_parameters:
+              source_table: payment_methods
+            source: WORKSPACE
+          max_retries: 2
+          min_retry_interval_millis: 60000
+          disable_auto_optimization: false
+        - task_key: silver_stores
+          depends_on:
+            - task_key: column_standardising_udf
+          notebook_task:
+            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/silver/silver_stores
+            base_parameters:
+              source_table: stores
+            source: WORKSPACE
+          max_retries: 2
+          min_retry_interval_millis: 60000
+          disable_auto_optimization: false
+        - task_key: silver_transaction_items
+          depends_on:
+            - task_key: column_standardising_udf
+          notebook_task:
+            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/silver/silver_transaction_items
+            base_parameters:
+              source_table: transaction_items
+            source: WORKSPACE
+          max_retries: 2
+          min_retry_interval_millis: 60000
+          disable_auto_optimization: false
+        - task_key: silver_transactions
+          depends_on:
+            - task_key: column_standardising_udf
+          notebook_task:
+            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/silver/silver_transactions
+            base_parameters:
+              source_table: transactions
+            source: WORKSPACE
+          max_retries: 2
+          min_retry_interval_millis: 60000
+          disable_auto_optimization: false
+        - task_key: silver_users
+          depends_on:
+            - task_key: column_standardising_udf
+          notebook_task:
+            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/silver/silver_users
+            base_parameters:
+              source_table: users
+            source: WORKSPACE
+          max_retries: 2
+          min_retry_interval_millis: 60000
+          disable_auto_optimization: false
+        - task_key: silver_vouchers
+          depends_on:
+            - task_key: column_standardising_udf
+          notebook_task:
+            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/silver/silver_vouchers
+            base_parameters:
+              source_table: vouchers
+            source: WORKSPACE
+          max_retries: 2
+          min_retry_interval_millis: 60000
+          disable_auto_optimization: false
+      queue:
+        enabled: true
+      parameters:
+        - name: catalog
+          default: coffee
+        - name: bronze_schema
+          default: bronze
+        - name: silver_schema
+          default: silver
+        - name: default_watermark
+          default: 1900-01-01
+      performance_target: PERFORMANCE_OPTIMIZED

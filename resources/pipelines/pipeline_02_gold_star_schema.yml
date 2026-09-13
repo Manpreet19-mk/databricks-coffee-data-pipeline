@@ -1,0 +1,21 @@
+resources:
+  pipelines:
+    pipeline_gold:
+      name: "gold_${bundle.target}"
+      libraries:
+        - glob:
+            include: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/gold/04_gold_aggregations
+        - glob:
+            include: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/gold/01_gold_stg.sql
+        - glob:
+            include: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/gold/02_gold_dimensions.sql
+        - glob:
+            include: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/gold/03_gold_fact.sql
+      schema: gold
+      continuous: false
+      development: false
+      photon: true
+      channel: CURRENT
+      catalog: coffee
+      serverless: true
+      root_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/gold

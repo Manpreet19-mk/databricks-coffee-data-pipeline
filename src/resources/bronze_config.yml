@@ -1,0 +1,85 @@
+tables:
+
+  payment_methods:
+    ingestion_type: copy_into
+    source_subfolder: payment_methods
+    file_format: CSV
+    format_options:
+      header: "true"
+    copy_options:
+      mergeSchema: "false"
+    columns:
+      - method_id
+      - method_name
+      - category
+
+  users:
+    ingestion_type: copy_into
+    source_subfolder: users
+    add_source_column: true
+    source_value: users
+    file_format: CSV
+    format_options:
+      header: "true"
+    copy_options:
+      mergeSchema: "false"
+    columns:
+      - user_id
+      - gender
+      - birthdate
+      - registered_at
+
+  vouchers:
+    ingestion_type: copy_into
+    source_subfolder: vouchers
+    file_format: CSV
+    format_options:
+      header: "true"
+    copy_options:
+      mergeSchema: "false"
+    columns:
+      - voucher_id
+      - voucher_code
+      - discount_type
+      - discount_value
+      - valid_from
+      - valid_to
+
+  transaction_items:
+    ingestion_type: copy_into
+    source_subfolder: transaction_items
+    add_source_column: true
+    source_value: transaction_items
+    file_format: CSV
+    format_options:
+      header: "true"
+    copy_options:
+      mergeSchema: "false"
+    columns:
+      - transaction_id
+      - item_id
+      - quantity
+      - unit_price
+      - subtotal
+      - created_at
+
+  transactions_batch:
+    ingestion_type: copy_into
+    source_subfolder: chunked_transactions/batch
+    add_source_column: true
+    source_value: chunked_transactions_batch
+    file_format: CSV
+    format_options:
+      header: "true"
+    copy_options:
+      mergeSchema: "false"
+    columns:
+      - transaction_id
+      - store_id
+      - payment_method_id
+      - voucher_id
+      - user_id
+      - original_amount
+      - discount_applied
+      - final_amount
+      - created_at

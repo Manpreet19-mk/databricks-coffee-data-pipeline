@@ -1,0 +1,46 @@
+name: Databricks CI/CD
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+  pull_request:
+
+jobs:
+  databricks_bundle:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # Installs the correct Databricks CLI (supports bundles)
+      - name: Set up Databricks CLI
+        uses: databricks/setup-cli@main
+
+      # Configure auth using GitHub secrets
+      - name: Configure Databricks authentication
+        run: |
+          echo "[DEFAULT]" > ~/.databrickscfg
+          echo "host = ${{ secrets.DATABRICKS_HOST }}" >> ~/.databrickscfg
+          echo "token = ${{ secrets.DATABRICKS_TOKEN }}" >> ~/.databrickscfg
+
+      - name: Bundle validate
+        run: databricks bundle validate
+
+      - name: Deploy to DEV
+        if: github.ref == 'refs/heads/dev'
+        run: databricks bundle deploy -t dev
+
+      - name: Run unit tests (DEV)
+        if: github.ref == 'refs/heads/dev'
+        run: databricks bundle run unit_test_runner -t dev
+
+      - name: Deploy to PROD
+        if: github.ref == 'refs/heads/main'
+        run: databricks bundle deploy -t prod
+
+      - name: Run unit tests (PROD)
+        if: github.ref == 'refs/heads/main'
+        run: databricks bundle run unit_test_runner -t prod

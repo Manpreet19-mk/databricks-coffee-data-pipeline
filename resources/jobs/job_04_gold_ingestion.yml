@@ -1,0 +1,15 @@
+resources:
+  jobs:
+    gold_ingestion:
+      name: gold_ingestion
+      email_notifications:
+        on_failure:
+          - dilpreetkaur21dk@gmail.com
+      tasks:
+        - task_key: Gold_dlt
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.pipeline_gold.id}
+            full_refresh: false
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED

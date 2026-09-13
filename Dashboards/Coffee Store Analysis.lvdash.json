@@ -1,0 +1,604 @@
+{
+  "datasets": [
+    {
+      "name": "af8a3d5d",
+      "displayName": "Monthly Coffee Sales and Transaction Summary",
+      "queryLines": [
+        "SELECT\r\n",
+        "  sales_month,\r\n",
+        "  total_sales,\r\n",
+        "  total_transactions,\r\n",
+        "  total_discount,\r\n",
+        "  avg_order_value\r\n",
+        "FROM coffee.gold.agg_monthly_sales\r\n",
+        "ORDER BY sales_month;\r\n"
+      ]
+    },
+    {
+      "name": "4a5c9892",
+      "displayName": "Monthly Coffee Sales and Transactions Trends",
+      "queryLines": [
+        "SELECT\r\n",
+        "  date_format(sales_month, 'yyyy-MM') AS sales_month,\r\n",
+        "  total_transactions\r\n",
+        "FROM coffee.gold.agg_monthly_sales\r\n",
+        "ORDER BY sales_month;\r\n"
+      ]
+    },
+    {
+      "name": "2ffbc385",
+      "displayName": "Monthly Sales Averages for Coffee Products",
+      "queryLines": [
+        "SELECT\r\n",
+        "  date_format(sales_month, 'yyyy-MM') AS sales_month,\r\n",
+        "  avg_order_value\r\n",
+        "FROM coffee.gold.agg_monthly_sales\r\n",
+        "ORDER BY sales_month;\r\n"
+      ]
+    },
+    {
+      "name": "0adab1d3",
+      "displayName": "Coffee Payment Method Sales Insights",
+      "queryLines": [
+        "SELECT\r\n",
+        "  method_name,\r\n",
+        "  category,\r\n",
+        "  total_transactions,\r\n",
+        "  total_sales,\r\n",
+        "  avg_order_value\r\n",
+        "FROM coffee.gold.agg_payment_method_split\r\n",
+        "ORDER BY total_sales DESC;\r\n",
+        "\r\n"
+      ]
+    },
+    {
+      "name": "f89f2017",
+      "displayName": "Top Coffee Store Performance Insights",
+      "queryLines": [
+        "SELECT\r\n",
+        "  store_name,\r\n",
+        "  city,\r\n",
+        "  state,\r\n",
+        "  total_transactions,\r\n",
+        "  total_sales,\r\n",
+        "  avg_order_value,\r\n",
+        "  total_discount\r\n",
+        "FROM coffee.gold.agg_store_performance\r\n",
+        "ORDER BY total_sales DESC\r\n",
+        "LIMIT 5;\r\n"
+      ]
+    },
+    {
+      "name": "7bfceb2e",
+      "displayName": "Top Coffee Menu Items by Sales Performance",
+      "queryLines": [
+        "SELECT\r\n",
+        "  item_name,\r\n",
+        "  category,\r\n",
+        "  total_quantity_sold,\r\n",
+        "  total_sales\r\n",
+        "FROM coffee.gold.agg_top_3_menu_items\r\n",
+        "ORDER BY total_sales DESC;\r\n"
+      ]
+    },
+    {
+      "name": "3e16f317",
+      "displayName": "Coffee Shop Item Sales Summary",
+      "queryLines": [
+        "SELECT SUM(quantity) AS total_items_sold\r\n",
+        "FROM coffee.gold.fact_transaction_items;\r\n"
+      ],
+      "catalog": "coffee",
+      "schema": "gold"
+    }
+  ],
+  "pages": [
+    {
+      "name": "8ae58c77",
+      "displayName": "monthly_sales",
+      "layout": [
+        {
+          "widget": {
+            "name": "total-sales-trend-by-month",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "af8a3d5d",
+                  "fields": [
+                    {
+                      "name": "sum(avg_order_value)",
+                      "expression": "SUM(`avg_order_value`)"
+                    },
+                    {
+                      "name": "sum(total_sales)",
+                      "expression": "SUM(`total_sales`)"
+                    },
+                    {
+                      "name": "sum(total_transactions)",
+                      "expression": "SUM(`total_transactions`)"
+                    },
+                    {
+                      "name": "monthly(sales_month)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `sales_month`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Total Sales Trend by Month"
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(sales_month)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_sales)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "show": false
+                },
+                "extra": [
+                  {
+                    "fieldName": "sum(avg_order_value)"
+                  },
+                  {
+                    "fieldName": "sum(total_sales)"
+                  },
+                  {
+                    "fieldName": "sum(total_transactions)"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 4,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "monthly-transactions-trend",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "af8a3d5d",
+                  "fields": [
+                    {
+                      "name": "monthly(sales_month)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `sales_month`)"
+                    },
+                    {
+                      "name": "sum(total_transactions)",
+                      "expression": "SUM(`total_transactions`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Monthly Transactions Trend"
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(sales_month)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_transactions)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 4,
+            "width": 4,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "average-order-value-trend",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "2ffbc385",
+                  "fields": [
+                    {
+                      "name": "sales_month",
+                      "expression": "`sales_month`"
+                    },
+                    {
+                      "name": "sum(avg_order_value)",
+                      "expression": "SUM(`avg_order_value`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Average Order Value Trend"
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "sales_month",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(avg_order_value)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 4,
+            "width": 4,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "payment-method-sales-split",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0adab1d3",
+                  "fields": [
+                    {
+                      "name": "countdistinct(method_name)",
+                      "expression": "COUNT(DISTINCT `method_name`)"
+                    },
+                    {
+                      "name": "total_sales",
+                      "expression": "`total_sales`"
+                    },
+                    {
+                      "name": "method_name",
+                      "expression": "`method_name`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Payment Method Sales Split"
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "countdistinct(method_name)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Method_name"
+                },
+                "color": {
+                  "fieldName": "total_sales",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "extra": [
+                  {
+                    "fieldName": "method_name"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 9,
+            "width": 4,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "store-performance-top-10-stores",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "f89f2017",
+                  "fields": [
+                    {
+                      "name": "sum(total_sales)",
+                      "expression": "SUM(`total_sales`)"
+                    },
+                    {
+                      "name": "sum(avg_order_value)",
+                      "expression": "SUM(`avg_order_value`)"
+                    },
+                    {
+                      "name": "store_name",
+                      "expression": "`store_name`"
+                    },
+                    {
+                      "name": "countdistinct(total_sales)",
+                      "expression": "COUNT(DISTINCT `total_sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Store Performance (Top 5 Stores)"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "store_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "countdistinct(total_sales)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "extra": [
+                  {
+                    "fieldName": "sum(total_sales)"
+                  },
+                  {
+                    "fieldName": "sum(avg_order_value)"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 9,
+            "width": 4,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "top-3-menu-items-sales",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "7bfceb2e",
+                  "fields": [
+                    {
+                      "name": "sum(total_quantity_sold)",
+                      "expression": "SUM(`total_quantity_sold`)"
+                    },
+                    {
+                      "name": "category",
+                      "expression": "`category`"
+                    },
+                    {
+                      "name": "item_name",
+                      "expression": "`item_name`"
+                    },
+                    {
+                      "name": "sum(total_sales)",
+                      "expression": "SUM(`total_sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Top 3 Menu Items by Sales"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "item_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_sales)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "extra": [
+                  {
+                    "fieldName": "sum(total_quantity_sold)"
+                  },
+                  {
+                    "fieldName": "category"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 9,
+            "width": 4,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "total-sales-1",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "af8a3d5d",
+                  "fields": [
+                    {
+                      "name": "sum(total_sales)",
+                      "expression": "SUM(`total_sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Total sales"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_sales)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 4,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "total-transactions",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4a5c9892",
+                  "fields": [
+                    {
+                      "name": "sum(total_transactions)",
+                      "expression": "SUM(`total_transactions`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Total transactions"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_transactions)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 0,
+            "width": 4,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "total-items-sold",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3e16f317",
+                  "fields": [
+                    {
+                      "name": "sum(total_items_sold)",
+                      "expression": "SUM(`total_items_sold`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Total items Sold"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_items_sold)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 4,
+            "height": 4
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
