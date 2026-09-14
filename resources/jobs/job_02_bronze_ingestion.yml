@@ -5,37 +5,37 @@ resources:
       tasks:
         - task_key: bronze_autoloader_menu_items
           notebook_task:
-            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/bronze/Bronze_menu_items
+            notebook_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/bronze/Bronze_menu_items
             base_parameters:
               table_name: menu_items
             source: WORKSPACE
         - task_key: bronze_copy_payment_methods
           notebook_task:
-            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/bronze/bronze_copy_into
+            notebook_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/bronze/bronze_copy_into
             base_parameters:
               table_name: payment_methods
             source: WORKSPACE
         - task_key: bronze_copy_transaction_items
           notebook_task:
-            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/bronze/bronze_copy_into
+            notebook_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/bronze/bronze_copy_into
             base_parameters:
               table_name: transaction_items
             source: WORKSPACE
         - task_key: bronze_copy_transactions_batch
           notebook_task:
-            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/bronze/bronze_copy_into
+            notebook_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/bronze/bronze_copy_into
             base_parameters:
               table_name: transactions_batch
             source: WORKSPACE
         - task_key: bronze_copy_users
           notebook_task:
-            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/bronze/bronze_copy_into
+            notebook_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/bronze/bronze_copy_into
             base_parameters:
               table_name: users
             source: WORKSPACE
         - task_key: bronze_copy_vouchers
           notebook_task:
-            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/bronze/bronze_copy_into
+            notebook_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/bronze/bronze_copy_into
             base_parameters:
               table_name: vouchers
             source: WORKSPACE
@@ -48,11 +48,11 @@ resources:
             - task_key: bronze_dlt_transactions_incremental
             - task_key: bronze_copy_transactions_batch
           notebook_task:
-            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/bronze/Merging_batch_and_incremental
+            notebook_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/bronze/Merging_batch_and_incremental
             source: WORKSPACE
         - task_key: bronze_xml_stores
           notebook_task:
-            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/bronze/Bronze_stores
+            notebook_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/bronze/Bronze_stores
             base_parameters:
               table_name: stores
             source: WORKSPACE

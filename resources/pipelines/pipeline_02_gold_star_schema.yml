@@ -4,13 +4,13 @@ resources:
       name: "gold_${bundle.target}"
       libraries:
         - glob:
-            include: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/gold/04_gold_aggregations
+            include: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/gold/04_gold_aggregations
         - glob:
-            include: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/gold/01_gold_stg.sql
+            include: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/gold/01_gold_stg.sql
         - glob:
-            include: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/gold/02_gold_dimensions.sql
+            include: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/gold/02_gold_dimensions.sql
         - glob:
-            include: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/gold/03_gold_fact.sql
+            include: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/gold/03_gold_fact.sql
       schema: gold
       continuous: false
       development: false
@@ -18,4 +18,4 @@ resources:
       channel: CURRENT
       catalog: coffee
       serverless: true
-      root_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/gold
+      root_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/gold

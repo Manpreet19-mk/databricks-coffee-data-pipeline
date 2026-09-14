@@ -8,13 +8,13 @@ resources:
       tasks:
         - task_key: column_standardising_udf
           notebook_task:
-            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/silver/Silver_utils/Column_standardization_udf
+            notebook_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/silver/Silver_utils/Column_standardization_udf
             source: WORKSPACE
         - task_key: silver_menu_items
           depends_on:
             - task_key: column_standardising_udf
           notebook_task:
-            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/silver/silver_menu_items
+            notebook_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/silver/silver_menu_items
             base_parameters:
               source_table: menu_items
             source: WORKSPACE
@@ -25,7 +25,7 @@ resources:
           depends_on:
             - task_key: column_standardising_udf
           notebook_task:
-            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/silver/silver_payment_methods
+            notebook_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/silver/silver_payment_methods
             base_parameters:
               source_table: payment_methods
             source: WORKSPACE
@@ -36,7 +36,7 @@ resources:
           depends_on:
             - task_key: column_standardising_udf
           notebook_task:
-            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/silver/silver_stores
+            notebook_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/silver/silver_stores
             base_parameters:
               source_table: stores
             source: WORKSPACE
@@ -47,7 +47,7 @@ resources:
           depends_on:
             - task_key: column_standardising_udf
           notebook_task:
-            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/silver/silver_transaction_items
+            notebook_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/silver/silver_transaction_items
             base_parameters:
               source_table: transaction_items
             source: WORKSPACE
@@ -58,7 +58,7 @@ resources:
           depends_on:
             - task_key: column_standardising_udf
           notebook_task:
-            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/silver/silver_transactions
+            notebook_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/silver/silver_transactions
             base_parameters:
               source_table: transactions
             source: WORKSPACE
@@ -69,7 +69,7 @@ resources:
           depends_on:
             - task_key: column_standardising_udf
           notebook_task:
-            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/silver/silver_users
+            notebook_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/silver/silver_users
             base_parameters:
               source_table: users
             source: WORKSPACE
@@ -80,7 +80,7 @@ resources:
           depends_on:
             - task_key: column_standardising_udf
           notebook_task:
-            notebook_path: /Workspace/Users/projectdilpreet@gmail.com/vstone-databricks-pipeline/src/notebooks/silver/silver_vouchers
+            notebook_path: /Workspace/Users/mkmanpreetkaur0016@gmail.com/databricks-coffee-data-pipeline/src/notebooks/silver/silver_vouchers
             base_parameters:
               source_table: vouchers
             source: WORKSPACE
