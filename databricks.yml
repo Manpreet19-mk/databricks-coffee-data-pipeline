@@ -9,10 +9,11 @@ targets:
   dev:
     default: true
     workspace:
-      host: https://dbc-860eea33-6ad3.cloud.databricks.com
+      host: https://dbc-1ce94d9a-0ad9.cloud.databricks.com
+
   prod:
     workspace:
-      host: https://dbc-860eea33-6ad3.cloud.databricks.com
+      host: https://dbc-1ce94d9a-0ad9.cloud.databricks.com
 
 variables:
   catalog:
